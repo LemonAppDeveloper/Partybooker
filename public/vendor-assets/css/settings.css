@@ -1,0 +1,230 @@
+.s-box {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: #232323;
+    transition: all 0.3s;
+    margin: 20px 0;
+}
+.s-box i {
+    font-size: 50px;
+    display: block;
+    margin-bottom: 20px;
+}
+.s-box:hover {
+    background: #FB8547;
+    color: #fff;
+}
+.g-setting{
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 30px;
+    color: #232323;    
+    margin: 20px 0;
+}
+.g-setting h3{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #1C1B1F;
+    margin-bottom: 30px;
+}
+.g-setting .form-control {
+    margin-bottom: 20px;
+    box-shadow: none;
+}
+.g-setting span{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    color: #CFCFCF;
+}
+.btn-green {
+    background: #04D833;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 30px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    transition: all 0.3s;
+}
+.btn-green:hover {
+    color: #fff;
+    background: #00bb29;
+}
+span.tox-statusbar__branding {
+    display: none;
+}
+.order-conf {
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+.order-conf h3{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #1C1B1F;
+    margin-bottom: 30px;
+}
+.order-conf button.btn.btn-blue {
+    display: inline-block;
+    width: auto;
+    padding: 10px 50px;
+}
+.tox .tox-edit-area__iframe {
+    background-color: rgba(33, 33, 33, 0.08)!important;
+}
+.tox.tox-tinymce {
+    height: 350px!important;
+}
+body#tinymce {
+    color: #1C1B1F;
+    font-size: 18px;
+    resize: none;
+}
+.order-list {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+.order-list ul {
+    padding: 0;
+    list-style-type: none;
+}
+.order-list ul a {
+    text-decoration: none;
+    padding: 12px 16px;
+    display: block;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+.order-list ul a p {
+    margin-bottom: 0;
+}
+.order-list ul a p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    color: #49454F;
+}
+.order-list ul a b {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    color: #1C1B1F;
+}
+.order-list ul a:hover b,
+.order-list ul a:hover p {
+    color: #fff;
+}
+.order-list ul a:hover {
+    background-color: #FB8547;
+}
+.faq-list {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+}
+.faq-list ul {
+    padding: 0;
+    list-style-type: none;
+}
+.accordion-body {
+    text-align: right;
+}
+.accordion-body p{
+    text-align: left;
+}
+button.accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+}
+button.accordion-button {
+    background: #FB8547!important;
+    color: #fff!important;
+    box-shadow: none;
+}
+button.accordion-button.collapsed {
+    background: #fff!important;
+    color: #000!important;
+}
+.accordion-button:not(.collapsed)::after{
+    background-image: url(../images/down-arrow.png)!important;
+    top: 21px;
+    position: absolute;
+    right: 20px;
+}
+.accordion-item {
+    border-radius: 12px!important;
+    overflow: hidden;
+    margin-bottom: 14px;
+    border: 0;
+}
+.accordion-collapse.collapse.show {
+    background: #fb8547;
+    color: #fff;
+    border: none;
+}
+.accordion-button:not(.collapsed){
+    box-shadow: none;
+}
+.accordion-collapse.collapse.show .accordion-body a {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #fff;
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+.accordion-body a {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #fff;
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+button.accordion-button.collapsed:hover {
+    background: #fb8547!important;
+    color: #fff!important;
+}
+button.accordion-button.collapsed:hover:after {
+    background-image: url(../images/down-arrow.png)!important;
+    top: 21px;
+    position: absolute;
+    right: 20px;
+}
+.order-list ul a.active {
+    background-color: #FB8547;
+  }
+  .order-list ul a.active b, .order-list ul a.active p {
+    color: #FFF;
+  }
+
+@media (min-width: 1024px){
+    .order-list {
+        padding: 15px;
+    }
+}
+@media (min-width: 1400px){
+    .order-list {
+        padding: 30px;
+    }
+}

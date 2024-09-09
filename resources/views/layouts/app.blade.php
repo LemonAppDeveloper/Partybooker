@@ -1,0 +1,9 @@
+@include('layouts.partials.header')
+@yield('content')
+@include('model.advance-search')
+@if(Auth::user())
+@include('model.edit-profile')
+@endif
+@include('model.add-event')
+@include('model.event-action')
+@include('layouts.partials.footer')

@@ -1,0 +1,5986 @@
+{
+	"info": {
+		"_postman_id": "e8f5bcd6-7318-4dd2-94e1-74accd9f0e99",
+		"name": "Party Bookr",
+		"description": "**Prerequisites:**\n\n- Need to call the Settings/General API whenever user launch the application, minimize, maximize etc.\n- This API is used to verify the current app version with the latest APP version\n- New Update on app/play store\n- Based on version verification need to show the popup to the user for App Update, Either forcefully or Manual if forcefully not required\n- Also this API has some basic settings in the response",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15819195",
+		"_collection_link": "https://orange-station-311534.postman.co/workspace/crestcoder~4763f806-e53a-4c62-b582-868ed3d94373/collection/28903759-e8f5bcd6-7318-4dd2-94e1-74accd9f0e99?action=share&source=collection_link&creator=15819195"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"if (response.status == true) {\r",
+									"    var token = response.data.access_token;\r",
+									"    pm.collectionVariables.set(\"token\", token);\r",
+									"} else {\r",
+									"    pm.collectionVariables.set(\"token\", '');\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "user@yopmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/login",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Sagar Developer",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "testsp1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "3",
+									"description": "1=Admin, 2-Vendor, 3-User",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/signup",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Social Login/Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "2",
+									"description": "1=Admin, 2-Vendor, 3-User",
+									"type": "text"
+								},
+								{
+									"key": "provider",
+									"value": "facebook",
+									"description": "google,facebook",
+									"type": "text"
+								},
+								{
+									"key": "provider_id",
+									"value": "1234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/socialLogin",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"socialLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "User",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user@yopmail.com",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1 - Android, 2 - iOS",
+									"type": "text"
+								},
+								{
+									"key": "id_category",
+									"value": "15",
+									"description": "Only when vendor profile, Get list from category API",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "profile_image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "repeat_password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/update-profile",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"update-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Notification Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1 - Android, 2 - iOS",
+									"type": "text"
+								},
+								{
+									"key": "notification_token",
+									"value": "fXRmI-39TPK3M7Wd2PMbBX:APA91bESRZKBwcGzC-GfrLqxTP-zgz8M_Q370Y0TOEqCwfa7oCWdbAme7ya5wPh60UC82wHFGdEJ7d983wGe1_-ioJDniUB8SPyG3Zk-LRvT1fh9e7A1qU3ruDXQZsmpRuEEJDfLSPzU",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/update-notification-token",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"update-notification-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Notification Setting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "notification_push_status",
+									"description": "Key from logged in/profile obect, Other field key: notification_email_status",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "0",
+									"description": "1=Enable, 0-Disable",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/notification-update",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"notification-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "current_password",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/change-password",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}api/get-profile",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"get-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user@yopmail.com",
+									"type": "text"
+								},
+								{
+									"key": "action",
+									"value": "forgot-password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/forgot-password",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event-Party",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "For Edit Case only",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "testsp Party dsds",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Ahmedabad, Gujarat, India",
+									"type": "text"
+								},
+								{
+									"key": "event_date",
+									"value": "2024-05-21",
+									"type": "text"
+								},
+								{
+									"key": "event_to_date",
+									"value": "2024-05-29",
+									"type": "text"
+								},
+								{
+									"key": "event_time",
+									"value": "11:00:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "event_to_time",
+									"value": "11:25:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "15",
+									"description": "Pick id from category API",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/event/create",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"event",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "For Edit Case only",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "event_date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "event_time",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/create",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:09:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:09:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The title field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "For Edit Case only",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "Birthday Party",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "Johanisberg",
+											"type": "text"
+										},
+										{
+											"key": "event_date",
+											"value": "2023-08-25",
+											"type": "text"
+										},
+										{
+											"key": "event_time",
+											"value": "11:00:00",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "15",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/create",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:13:17 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:13:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Party created successfully.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Birthday Party",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "location",
+									"value": "Johanisberg",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "event_date",
+									"value": "2023-08-25",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "event_time",
+									"value": "11:00:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "15",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/event/get",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"event",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Birthday Party",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "location",
+											"value": "Johanisberg",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "event_date",
+											"value": "2023-08-25",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "event_time",
+											"value": "11:00:00",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "15",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:17:55 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:17:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"info\": [\n            {\n                \"id\": 3,\n                \"id_user\": 10,\n                \"event_title\": \"Vendor Party\",\n                \"event_location\": \"Vendor Party Location\",\n                \"event_date\": \"31-May-2023\",\n                \"event_time\": \"10:35 AM\",\n                \"event_category\": \"Vendor Category\",\n                \"created_by\": 10,\n                \"created_at\": \"2023-05-30 04:54:40\",\n                \"updated_at\": \"2023-05-30 04:54:40\"\n            },\n            {\n                \"id\": 8,\n                \"id_user\": 10,\n                \"event_title\": \"Birthday Party\",\n                \"event_location\": \"Johanisberg\",\n                \"event_date\": \"2023-08-25\",\n                \"event_time\": \"11:00:00\",\n                \"event_category\": \"15\",\n                \"created_by\": 10,\n                \"created_at\": \"2023-08-25 05:13:17\",\n                \"updated_at\": \"2023-08-25 05:13:17\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/event/detail",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"event",
+								"detail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/detail",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"detail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:23:54 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:23:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "56"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": null,\n    \"data\": {\n        \"info\": {\n            \"id\": 3,\n            \"id_user\": 10,\n            \"event_title\": \"Vendor Party\",\n            \"event_location\": \"Vendor Party Location\",\n            \"event_date\": \"31-May-2023\",\n            \"event_time\": \"10:35 AM\",\n            \"event_category\": \"Vendor Category\",\n            \"created_by\": 10,\n            \"created_at\": \"2023-05-30 04:54:40\",\n            \"updated_at\": \"2023-05-30 04:54:40\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/event/delete",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"event",
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/delete",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:29:48 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:29:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The id field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/event/delete",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"event",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:31:53 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:31:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Event deleted successfully.\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Faq Get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "get",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/faq",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"faq"
+							]
+						},
+						"description": "**Request Parameter  \n**\n\nRequest parameter must be set as **action** and value shouble be **get**"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/faq",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"faq"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:03:17 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:03:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"question\": \"How to user Partybookr app?\",\n            \"answer\": \"How to user Partybookr app?\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "geta",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/faq",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"faq"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:05:22 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:05:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "CMS Page",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "get",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cms",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cms"
+							]
+						},
+						"description": "**Request Parameter  \n**\n\nRequest parameter must be set as **action** and value shouble be **get**"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cms",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:09:28 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:09:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Refund Policy\",\n            \"slug\": \"refund-policy\",\n            \"description\": \"<p>Refund Policy</p>\\r\\n<p>&nbsp;</p>\\r\\n<p>Lorem ipsum dolor sit amet.</p>\"\n        },\n        {\n            \"id\": 2,\n            \"title\": \"Privacy Policy\",\n            \"slug\": \"privacy-policy\",\n            \"description\": \"<p>Privacy Policy<br /><br />Lorem ipsum dolor sit amet.</p>\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"Terms And Conditions\",\n            \"slug\": \"Terms And Conditions\",\n            \"description\": \"<p>Terms And Conditions<br /><br />Lorem ipsum dolor sit amet.</p>\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"About Us\",\n            \"slug\": \"about-us\",\n            \"description\": \"<p>About Us</p>\\r\\n<p>&nbsp;</p>\\r\\n<p>Lorem ipsum dolor sit amet.</p>\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Failure Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "gets",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cms",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:10:00 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:10:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Details not available.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "General",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "get",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/general",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"general"
+							]
+						},
+						"description": "\\*_Request Parameter__\\*_\n\nRequest parameter must be set as **action** and value shouble be **get**\n\n- Need to compare version infomration at every launch of application like minimize, maximize, New open etc.\n- If version details does not match then need to show the App Update Popup\n- Some Basic settings also returned in this API response."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/general",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"general"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:13:14 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Apr 2023 10:13:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"general\": [\n            {\n                \"id\": 1,\n                \"setting_key\": \"time_zone\",\n                \"setting_value\": \"Asia/Seoul\"\n            },\n            {\n                \"id\": 2,\n                \"setting_key\": \"currency\",\n                \"setting_value\": \"BMD\"\n            },\n            {\n                \"id\": 3,\n                \"setting_key\": \"order_prefix\",\n                \"setting_value\": \"AB\"\n            },\n            {\n                \"id\": 4,\n                \"setting_key\": \"order_suffix\",\n                \"setting_value\": \"CD\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "get",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/category",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"category"
+							]
+						},
+						"description": "**Request Parameter  \n**\n\nRequest parameter must be set as **action** and value shouble be **get**"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/category",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:42:11 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:42:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 12,\n            \"category_name\": \"TEST\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287140_PNG-avatar.png\"\n        },\n        {\n            \"id\": 13,\n            \"category_name\": \"Test\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287165_PNG-avatar.png\"\n        },\n        {\n            \"id\": 14,\n            \"category_name\": \"TEST 2\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287314_PNG-avatar-2.png\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/category",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:44:53 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:44:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Details not available.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Sub category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "get",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/get-sub-category",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"get-sub-category"
+							]
+						},
+						"description": "**Request Parameter  \n**\n\nRequest parameter must be set as **action** and value shouble be **get**"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/category",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:42:11 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:42:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": [\n        {\n            \"id\": 12,\n            \"category_name\": \"TEST\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287140_PNG-avatar.png\"\n        },\n        {\n            \"id\": 13,\n            \"category_name\": \"Test\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287165_PNG-avatar.png\"\n        },\n        {\n            \"id\": 14,\n            \"category_name\": \"TEST 2\",\n            \"category_icon\": \"http://localhost:8000/uploads/category/1681287314_PNG-avatar-2.png\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "action",
+											"value": "get",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/category",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:44:53 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Apr 2023 08:44:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Details not available.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "get-sub-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/get-sub-category",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"get-sub-category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendor",
+			"item": [
+				{
+					"name": "Plan",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "is_enable",
+											"value": "1",
+											"description": "1 - Active, 2 - Inactive, 0-All",
+											"type": "text"
+										},
+										{
+											"key": "filter_by",
+											"value": "price_low_to_high",
+											"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/plan/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"plan",
+										"get"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "5",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/get",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:34:55 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:34:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"plan_info\": [\n            {\n                \"id\": 5,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 7,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 8,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1686115388-profile.png\"\n            },\n            {\n                \"id\": 2,\n                \"plan_name\": \"Basic VIP\",\n                \"plan_title\": \"4 months to pay with 0% Interest via credit card\",\n                \"plan_sub_title\": \"(Only available in Australia region)\",\n                \"plan_description\": \"Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.\",\n                \"plan_amount\": 200,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1685602482-profile.png\"\n            },\n            {\n                \"id\": 3,\n                \"plan_name\": \"Basic VIPA\",\n                \"plan_title\": \"4 months to pay with 0% Interest via credit card\",\n                \"plan_sub_title\": \"(Only available in Australia region)\",\n                \"plan_description\": \"Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.\",\n                \"plan_amount\": 450,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1685602510-profile.png\"\n            }\n        ]\n    }\n}"
+								},
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "5",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/get",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:37:01 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:37:01 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Plan details not available.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/plan/delete",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"plan",
+										"delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "id",
+													"value": "5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/delete",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:17 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:17 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "57"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Delete successful.\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "id",
+													"value": "5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/delete",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:43 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:43 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Something went wrong.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Add/Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "plan_name",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "plan_title",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "plan_sub_title",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "plan_description",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "plan_amount",
+											"value": "10.5",
+											"type": "text"
+										},
+										{
+											"key": "is_enable",
+											"value": "1",
+											"description": "1 - Active, 2-InActive",
+											"type": "text"
+										},
+										{
+											"key": "plan_image",
+											"type": "file",
+											"src": "/C:/Users/HP/Downloads/DEMO DOCUMENTS/PNG-avatar.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/plan/add-update",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"plan",
+										"add-update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "1",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/add-update",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"add-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:18:30 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:18:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"The plan name field is required.\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "plan_name",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_title",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_sub_title",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_description",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_amount",
+													"value": "10.5",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "1",
+													"description": "1 - Active, 2-InActive",
+													"type": "text"
+												},
+												{
+													"key": "plan_image",
+													"type": "file",
+													"src": "/C:/Users/HP/Downloads/DEMO DOCUMENTS/PNG-avatar.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/add-update",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"add-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:23:08 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:23:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Record added succesfully.\",\n    \"data\": null\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "is_enable",
+											"value": "1",
+											"description": "1 - Active, 2 - Inactive, 0-All",
+											"type": "text"
+										},
+										{
+											"key": "filter_by",
+											"value": "price_low_to_high",
+											"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/product/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"product",
+										"get"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "5",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/get",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:34:55 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:34:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"plan_info\": [\n            {\n                \"id\": 5,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 7,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"\"\n            },\n            {\n                \"id\": 8,\n                \"plan_name\": \"From API\",\n                \"plan_title\": \"From API\",\n                \"plan_sub_title\": \"From API\",\n                \"plan_description\": \"From API\",\n                \"plan_amount\": 10.5,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1686115388-profile.png\"\n            },\n            {\n                \"id\": 2,\n                \"plan_name\": \"Basic VIP\",\n                \"plan_title\": \"4 months to pay with 0% Interest via credit card\",\n                \"plan_sub_title\": \"(Only available in Australia region)\",\n                \"plan_description\": \"Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.\",\n                \"plan_amount\": 200,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1685602482-profile.png\"\n            },\n            {\n                \"id\": 3,\n                \"plan_name\": \"Basic VIPA\",\n                \"plan_title\": \"4 months to pay with 0% Interest via credit card\",\n                \"plan_sub_title\": \"(Only available in Australia region)\",\n                \"plan_description\": \"Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor.\",\n                \"plan_amount\": 450,\n                \"is_enable\": 1,\n                \"plan_image_url\": \"http://localhost:8000/uploads/plan/1685602510-profile.png\"\n            }\n        ]\n    }\n}"
+								},
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "5",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/get",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:37:01 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:37:01 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Plan details not available.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "8",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/product/delete",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"product",
+										"delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "id",
+													"value": "5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/delete",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:17 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:17 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "57"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Delete successful.\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "id",
+													"value": "5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/delete",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:43 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:40:43 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Something went wrong.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Add/Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "From API",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "product_status",
+											"value": "1",
+											"description": "1 - Active, 2-InActive",
+											"type": "text"
+										},
+										{
+											"key": "product_image[]",
+											"description": "Multiple Image",
+											"type": "file",
+											"src": [
+												"/C:/Users/HP/Downloads/DEMO DOCUMENTS/JPG-demo.jpg",
+												"/C:/Users/HP/Downloads/DEMO DOCUMENTS/JPG-long-height.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/product/add-update",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"product",
+										"add-update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "1",
+													"description": "1 - Active, 2 - Inactive, 0-All",
+													"type": "text"
+												},
+												{
+													"key": "filter_by",
+													"value": "price_low_to_high",
+													"description": "price_high_to_low, price_low_to_high, old_to_new, new_to_old",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/add-update",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"add-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:18:30 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:18:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"The plan name field is required.\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "plan_name",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_title",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_sub_title",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_description",
+													"value": "From API",
+													"type": "text"
+												},
+												{
+													"key": "plan_amount",
+													"value": "10.5",
+													"type": "text"
+												},
+												{
+													"key": "is_enable",
+													"value": "1",
+													"description": "1 - Active, 2-InActive",
+													"type": "text"
+												},
+												{
+													"key": "plan_image",
+													"type": "file",
+													"src": "/C:/Users/HP/Downloads/DEMO DOCUMENTS/PNG-avatar.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/plan/add-update",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"plan",
+												"add-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:23:08 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 05:23:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Record added succesfully.\",\n    \"data\": null\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Get Profile",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Jaydip Developer",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "testcrestemail2@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/get-profile",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"get-profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Description",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1-Android, 2-iOS",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "There",
+											"description": "textarea contnet",
+											"type": "text"
+										},
+										{
+											"key": "attribute_name[]",
+											"value": "ABCD",
+											"type": "text"
+										},
+										{
+											"key": "quantity[]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "attribute_name[]",
+											"value": "DEFG",
+											"type": "text"
+										},
+										{
+											"key": "quantity[]",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/profile/update-description",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"profile",
+										"update-description"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Lorem ipsum dolor sit amet. ",
+													"description": "textarea contnet",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/profile/update-description",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"profile",
+												"update-description"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 06:05:20 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 06:05:20 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "58"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Description updated succesfully.\",\n    \"data\": null\n}"
+								},
+								{
+									"name": "Failure Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "device_type",
+													"value": "1",
+													"description": "1-Android, 2-iOS",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "",
+													"description": "textarea contnet",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/vendor/profile/update-description",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"vendor",
+												"profile",
+												"update-description"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 06:05:46 GMT"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 07 Jun 2023 06:05:46 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/7.2.31"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "57"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"The description field is required.\",\n    \"data\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Jaydip Developer",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "testcrestemail5@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "2",
+											"description": "1=Admin, 2-Vendor, 3-User",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456789",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "123456789",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/signup",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Vendor",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "vendor@yopmail.com",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1 - Android, 2 - iOS",
+											"type": "text"
+										},
+										{
+											"key": "profile_image",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/update-profile",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"update-profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "current_password",
+											"value": "123456788",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456789",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "123456789",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/change-password",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Reviews",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1 - Android, 2 - iOS",
+											"type": "text"
+										},
+										{
+											"key": "id_vendor",
+											"value": "257",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/customer-reviews/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"customer-reviews",
+										"get"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Review",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1 - Android, 2 - iOS",
+											"type": "text"
+										},
+										{
+											"key": "id",
+											"value": "257",
+											"type": "text"
+										},
+										{
+											"key": "send_as",
+											"value": "anonymous",
+											"description": "anonymous OR user",
+											"type": "text"
+										},
+										{
+											"key": "rating",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "review",
+											"value": "Lorem ipsum dolor sit amet. sagar ",
+											"type": "text"
+										},
+										{
+											"key": "review_image[]",
+											"type": "file",
+											"src": [
+												"/C:/Users/HP/Downloads/DEMO DOCUMENTS/JPEG-image 50% off.jpg",
+												"/C:/Users/HP/Downloads/DEMO DOCUMENTS/JPG-demo.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/customer-reviews/add",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"customer-reviews",
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "",
+									"description": "1,2,3,4,5 -> Values",
+									"type": "text"
+								},
+								{
+									"key": "sort_by",
+									"value": "",
+									"description": "A-Z,Z-A,lowest_price_first,highest_price_first,latest,oldest",
+									"type": "text"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search keyword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/vendor/get",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"vendor",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "category",
+											"value": "15",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:57:55 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 05:57:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"\",\n    \"data\": {\n        \"vendor_info\": [\n            {\n                \"id\": 10,\n                \"name\": \"Vendor\",\n                \"email\": \"vendor@yopmail.com\",\n                \"profile_image\": \"1686129375-profile.png\",\n                \"banner_url\": \"http://localhost:8000/uploads/vendor-gallery/1686904622-gallery.jpg\",\n                \"address\": null,\n                \"description\": \"Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.\",\n                \"avg_rating\": null,\n                \"timing\": \"\"\n            },\n            {\n                \"id\": 12,\n                \"name\": \"Vendor\",\n                \"email\": \"vendor1@yopmail.com\",\n                \"profile_image\": null,\n                \"banner_url\": \"http://localhost:8000/assets/images/default-gallery.png\",\n                \"address\": \"\",\n                \"description\": \"\",\n                \"avg_rating\": null,\n                \"timing\": \"\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "257",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/vendor/detail",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"vendor",
+								"detail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/vendor/detail",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"vendor",
+										"detail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 06:06:47 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Aug 2023 06:06:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Detail not available.\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "product",
+									"description": "plan or product",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "1",
+									"description": "Only when type if product",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								},
+								{
+									"key": "event_id",
+									"value": "79",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/add",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "product",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "1",
+											"description": "Only when type if product",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 09:36:33 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 09:36:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Cart updated successfully.\",\n    \"data\": {\n        \"redirect_url\": \"http://localhost:8000/cart\"\n    }\n}"
+						},
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "product",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "1",
+											"description": "Only when type if product",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 09:37:37 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 09:37:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The id field is required.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "24",
+									"description": "Array of selected id, pick id from cart_info object",
+									"type": "text"
+								},
+								{
+									"key": "action",
+									"value": "remove",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/remove",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add To Shortlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id[]",
+									"value": "2",
+									"description": "Array of selected id, pick id from cart_info object",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/add-to-shortlist",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"add-to-shortlist"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id[]",
+											"value": "",
+											"description": "Array of selected id, pick id from cart_info object",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add-to-shortlist",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add-to-shortlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:18:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:18:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The id.0 field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id[]",
+											"value": "1",
+											"description": "Array of selected id, pick id from cart_info object",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add-to-shortlist",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add-to-shortlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:19:09 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:19:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Cart updated successfully.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Add To Confirm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id[]",
+									"value": "2",
+									"description": "Array of selected id, pick id from cart_info object",
+									"type": "text"
+								},
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/add-to-confirm",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"add-to-confirm"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id[]",
+											"value": "",
+											"description": "Array of selected id, pick id from cart_info object",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add-to-shortlist",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add-to-shortlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:18:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:18:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The id.0 field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id[]",
+											"value": "1",
+											"description": "Array of selected id, pick id from cart_info object",
+											"type": "text"
+										},
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/add-to-shortlist",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"add-to-shortlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:19:09 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:19:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Cart updated successfully.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Confirm Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								},
+								{
+									"key": "cardholder_name",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "card_number",
+									"value": "4111111111111111",
+									"type": "text"
+								},
+								{
+									"key": "expiry_date",
+									"value": "10/25",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "id_events",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "id_cart",
+									"value": "10,25",
+									"description": "Comma Separated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/confirm-booking",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"confirm-booking"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										},
+										{
+											"key": "cardholder_name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "expiry_date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "cvv",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "id_events",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/confirm-booking",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"confirm-booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:21:26 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:21:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The cardholder name field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										},
+										{
+											"key": "cardholder_name",
+											"value": "John",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "4111111111111111",
+											"type": "text"
+										},
+										{
+											"key": "expiry_date",
+											"value": "10/25",
+											"type": "text"
+										},
+										{
+											"key": "cvv",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "id_events",
+											"value": "7",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/confirm-booking",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"confirm-booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:23:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:23:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Your booking successful.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "1",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "51",
+									"description": "selected id",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/cancel-booking",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"cancel-booking"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										},
+										{
+											"key": "cardholder_name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "expiry_date",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "cvv",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "id_events",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/confirm-booking",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"confirm-booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:21:26 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:21:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"The cardholder name field is required.\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "device_type",
+											"value": "1",
+											"description": "1=Android, 2=iOS",
+											"type": "text"
+										},
+										{
+											"key": "cardholder_name",
+											"value": "John",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "4111111111111111",
+											"type": "text"
+										},
+										{
+											"key": "expiry_date",
+											"value": "10/25",
+											"type": "text"
+										},
+										{
+											"key": "cvv",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "id_events",
+											"value": "7",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/confirm-booking",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"confirm-booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:23:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 11:23:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "52"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Your booking successful.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "2",
+									"description": "1=Android, 2=iOS",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "",
+									"description": "Default Blank, When user want to change event then pass that particular event id here. Default it will pick the last event",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/cart/get",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"cart",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 10:54:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 10:54:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": null,\n    \"data\": {\n        \"cart_info\": {\n            \"pending\": null,\n            \"shortlist\": null,\n            \"confirmed\": null\n        },\n        \"party_info\": [\n            {\n                \"id\": 7,\n                \"id_user\": 9,\n                \"event_title\": \"Add/Update Verification BG\",\n                \"event_location\": \"Location\",\n                \"event_date\": \"10-Jan-2010\",\n                \"event_time\": \"10:00 AM\",\n                \"event_category\": \"Category\",\n                \"created_by\": 9,\n                \"created_at\": \"2023-06-29 12:16:38\",\n                \"updated_at\": \"2023-06-29 12:33:14\"\n            },\n            {\n                \"id\": 9,\n                \"id_user\": 9,\n                \"event_title\": \"TEst\",\n                \"event_location\": \"TEst 2\",\n                \"event_date\": \"22-Dec-2023\",\n                \"event_time\": \"12:16 PM\",\n                \"event_category\": \"Category\",\n                \"created_by\": 9,\n                \"created_at\": \"2023-12-11 06:47:14\",\n                \"updated_at\": \"2023-12-11 06:47:14\"\n            }\n        ],\n        \"default_event\": {\n            \"id\": 7,\n            \"id_user\": 9,\n            \"event_title\": \"Add/Update Verification BG\",\n            \"event_location\": \"Location\",\n            \"event_date\": \"10-Jan-2010\",\n            \"event_time\": \"10:00 AM\",\n            \"event_category\": \"Category\",\n            \"created_by\": 9,\n            \"created_at\": \"2023-06-29 12:16:38\",\n            \"updated_at\": \"2023-06-29 12:33:14\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Failure Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/cart/get",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"cart",
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 10:55:00 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Dec 2023 10:55:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.2.31"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"You booking selection is empty.\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Favorite",
+					"item": [
+						{
+							"name": "Add/Remove",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "plan",
+											"description": "product/plan",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/update-favorite",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"update-favorite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "My Favorite",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/my-favorite",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"my-favorite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove From List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "11",
+											"description": "Comma separated selected id",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "remove",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/remove-favorite",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"remove-favorite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Favorite To Cart",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "25",
+											"description": "Comma separated selected id",
+											"type": "text"
+										},
+										{
+											"key": "id_event",
+											"value": "13",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/favorite-to-cart",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"favorite-to-cart"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Party",
+					"item": [
+						{
+							"name": "Planned",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}api/party/planned",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"party",
+										"planned"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Previous",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}api/party/previous",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"party",
+										"previous"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "device_type",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/notification-get",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"notification-get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "35",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/send-notification",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"send-notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/notification-detail",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"notification-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Test Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "key=AAAA1a0Nx7Q:APA91bHtyTWvjS3fX3Gq6mPvpYX3YXh18_ZJJK0wqRFEl3U3ZxvzEcfMtUTcx24G2gmbdQQF-7FDHqCg0jJgBWTgY_Qc3ryNxOmnG6eqwqq0r-psFUJNMjMVFGsBR7xk-5DlwBHMvJvf",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://fcm.googleapis.com/fcm/send",
+							"protocol": "https",
+							"host": [
+								"fcm",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"fcm",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "https://partybookr.projectdemo.click/",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost/crestcoder/partybookr/public/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiMTJmNTc1ZmJmZmFkZDUwZTdlMDA5YmI3YzJhZjQxYmZiOGViYTIyNjZmMDI4OWI3OWMxNjlhNDkzNDA4OWU2Y2Y1MmRkMjBmNjZhZWE3YTYiLCJpYXQiOjE3MTk5MDQ1MTkuMDQ5NDUzMDIwMDk1ODI1MTk1MzEyNSwibmJmIjoxNzE5OTA0NTE5LjA0OTQ1NzA3MzIxMTY2OTkyMTg3NSwiZXhwIjoxNzUxNDQwNTE5LjAzOTYwMzk0ODU5MzEzOTY0ODQzNzUsInN1YiI6IjIwMSIsInNjb3BlcyI6W119.D3VbsCRfyqoxWMmIwCWqIggvVVNxDtsyY97TWz6wHhsAjyadMXAceAY_JUa5HP06JB6C932alzvMXKrOZT9zZ4mpN2d15H0SS5LhRr7C-4EVPjh-_F7txPIuvzi_ZVisj05Q7rxc51gPZXpyOXm4caG3w5cjjvD6Wn3gIwyyuuZFlnaP0J4tO9JNiH2vjZOhVrdPDDPadKk83w_oBUthwS3vjMcX4Y790OEJDyMCbVmOWHf2owa444YFTu5C1nmoWCs9WX4VWqhHVdswEww0prHGMihpNXiRRsoSt09xCYPGOMOfk0R1vmDwjvxrrc6WGOwf63VWEdm8sBYh2L990gPY7liLxXReH_0djzxcrbgfS_Kw363pQ_bV15EJcMQrRPPP-4cH8R_nCwTgMOra-tWHZwj8Oz4mrWH7bFgGSB3TUoYsGEf4NE_PBTsj6t5EI6J4T9WRqL0pASuWspi--4x2YU_GMC0un_8EvUkSO9_9cklXfLfc_mrnvMUFIw79KTkHxT5EWOWHHnIstbmu4S9IUUfSx2ZpPnS_8CABfhHaOiCsNy-xladDnbI4EiChjVVXD-FCaxiR-VzGfB2OriCanPy5943qA5NSHJxj9PQi_Uy8sDzqyVi9j__jlqX4a97mPWSVrexg5twfm7_miqvbspgPUZimu_PGQWlsGBc"
+		}
+	]
+}
